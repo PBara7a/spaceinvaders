@@ -1,0 +1,16 @@
+plugins {
+	id 'java'
+	id "io.freefair.lombok" version "8.10.2"
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {}
