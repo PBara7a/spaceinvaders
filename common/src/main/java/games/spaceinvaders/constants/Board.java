@@ -1,4 +1,4 @@
-package games.spaceinvaders.contants;
+package games.spaceinvaders.constants;
 
 import java.awt.Color;
 

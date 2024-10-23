@@ -8,6 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id "io.freefair.lombok" version "8.10.2"
 }
 
 repositories {
@@ -19,8 +20,17 @@ dependencies {
     // Use JUnit test framework.
     testImplementation libs.junit
 
-    // This dependency is used by the application.
-    implementation libs.guava
+    implementation project(':common')
+    // WebSocket support and STOMP messaging
+    implementation 'org.springframework:spring-messaging:5.3.22'
+    implementation 'org.springframework:spring-websocket:5.3.22'
+    // A reference implementation of the Java WebSocket API (JSR-356)
+    implementation 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.18'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+    // Logging dependency for debugging
+    implementation 'org.slf4j:slf4j-simple:1.7.32'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

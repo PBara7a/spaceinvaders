@@ -1,23 +1,19 @@
-package games.spaceinvaders.game;
+package games.spaceinvaders.server.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import games.spaceinvaders.actors.Alien;
-import games.spaceinvaders.contants.Board;
+import games.spaceinvaders.server.models.Alien;
+import games.spaceinvaders.constants.Board;
+import lombok.Getter;
 
+
+@Getter
 public class WaveManager {
 
 	private int alienRows = 2;
 	private int alienColumns = 3;
 
-	public int getAlienRows() {
-		return alienRows;
-	}
-
-	public int getAlienColumns() {
-		return alienColumns;
-	}
 
 	public List<Alien> createFirstWave() {
 		reset();

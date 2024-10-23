@@ -5,11 +5,17 @@ import java.util.Objects;
 
 import javax.swing.ImageIcon;
 
+import games.spaceinvaders.constants.Board;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import games.spaceinvaders.contants.Board;
-
+@Getter
+@Setter
 public class Alien extends Sprite {
 
+	@Getter
+	@AllArgsConstructor
 	private enum AlienAnimation {
 
 		ALIEN_A( new ImageIcon( Objects.requireNonNull(
@@ -19,41 +25,14 @@ public class Alien extends Sprite {
 
 		private final Image image;
 
-		AlienAnimation( final Image image ) {
-			this.image = image;
-		}
-
-		public Image getImage() {
-			return image;
-		}
 	}
 
 	private boolean alive;
 
-	public Alien( final int r, final int c ) {
-		super( AlienAnimation.ALIEN_A.getImage(), Board.tileSize, Board.tileSize / 2,
-				c * Board.tileSize + Board.tileSize, r * Board.tileSize + Board.tileSize * 2, 1 );
-		this.alive = true;
-	}
-
-	public boolean isAlive() {
-		return alive;
-	}
-
-	public void setAlive( final boolean alive ) {
-		this.alive = alive;
-	}
-
-	public void moveXAxis() {
-		setX( getX() + getXVelocity() );
-	}
-
-	public void moveYAxis() {
-		setY( getY() + getHeight() );
-	}
-
-	public void reverseDirection() {
-		setXVelocity( getXVelocity() * -1 );
+	public Alien() {
+		setImage( AlienAnimation.ALIEN_A.getImage() );
+		setWidth( Board.tileSize );
+		setHeight( Board.tileSize / 2 );
 	}
 
 	public void toggleAnimation() {

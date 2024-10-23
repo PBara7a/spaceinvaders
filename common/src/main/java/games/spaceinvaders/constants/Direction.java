@@ -1,4 +1,4 @@
-package games.spaceinvaders.contants;
+package games.spaceinvaders.constants;
 
 public enum Direction {
 	UP, DOWN, LEFT, RIGHT

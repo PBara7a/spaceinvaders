@@ -1,12 +1,24 @@
 package games.spaceinvaders.dto;
 
-import lombok.AllArgsConstructor;
+import games.spaceinvaders.constants.Direction;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-public class ShipMove {
-	private int player;
-	private int shipX;
-	private int shipY;
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class ShipMove extends PlayerAction {
+
+	private Direction direction;
+
+	public ShipMove( final int player, final Direction direction ) {
+		super( player );
+		this.direction = direction;
+	}
+
+	@Override
+	public String toString() {
+		return String.format( "ShipMove(player=%d, direction=%s)", getPlayer(), getDirection() );
+	}
 }

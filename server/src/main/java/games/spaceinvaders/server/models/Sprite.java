@@ -1,6 +1,4 @@
-package games.spaceinvaders.actors;
-
-import java.awt.Image;
+package games.spaceinvaders.server.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public abstract class Sprite {
 
-	private Image image;
 	private int width;
 	private int height;
 	private int x;

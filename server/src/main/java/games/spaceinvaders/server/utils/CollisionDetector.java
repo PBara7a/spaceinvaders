@@ -1,6 +1,6 @@
-package games.spaceinvaders.utils;
+package games.spaceinvaders.server.utils;
 
-import games.spaceinvaders.actors.Sprite;
+import games.spaceinvaders.server.models.Sprite;
 
 public class CollisionDetector {
 

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/spaceinvaders.client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/client/spaceinvaders.client.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/spaceinvaders.client.test.iml" filepath="$PROJECT_DIR$/.idea/modules/client/spaceinvaders.client.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/spaceinvaders.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/spaceinvaders.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/spaceinvaders.server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/spaceinvaders.server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/spaceinvaders.server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/spaceinvaders.server.test.iml" />
     </modules>
   </component>
 </project>

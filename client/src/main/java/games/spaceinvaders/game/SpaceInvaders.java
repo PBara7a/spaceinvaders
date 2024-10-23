@@ -9,31 +9,25 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import games.spaceinvaders.input.InputHandler;
-import games.spaceinvaders.contants.Board;
+import games.spaceinvaders.constants.Board;
 
 public class SpaceInvaders extends JPanel implements ActionListener {
 
-	private final Timer gameLoop;
 	private final GameManager gameManager;
 
-	public SpaceInvaders() {
+	public SpaceInvaders( final GameManager gameManager, final InputHandler inputHandler ) {
 		setPreferredSize( new Dimension( Board.width, Board.height ) );
 		setBackground( Board.color );
 		setFocusable( true );
+		addKeyListener( inputHandler );
 
-		final var waveManager = new WaveManager();
-		gameManager = new GameManager( waveManager );
-		addKeyListener( new InputHandler( this, gameManager ) );
+		this.gameManager = gameManager;
 
-		gameLoop = new Timer( 1000/60, this ); // 60 frames per second;
+		final var gameLoop = new Timer( 1000 / 60, this );
 		gameLoop.start();
 
 		final var animationLoop = new Timer( 500, e -> gameManager.toggleAlienAnimation() );
 		animationLoop.start();
-	}
-
-	public void restartGameLoop() {
-		gameLoop.restart();
 	}
 
 	@Override
@@ -44,11 +38,7 @@ public class SpaceInvaders extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed( final ActionEvent e ) {
-		gameManager.updateGame();
 		repaint();
-		if ( gameManager.isGameOver() ) {
-			gameLoop.stop();
-		}
 	}
 
 }

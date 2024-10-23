@@ -3,43 +3,37 @@ package games.spaceinvaders.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import games.spaceinvaders.contants.Direction;
-import games.spaceinvaders.game.GameManager;
-import games.spaceinvaders.game.SpaceInvaders;
-import games.spaceinvaders.actors.Bullet;
+import games.spaceinvaders.client.WebSocketClient;
+import games.spaceinvaders.constants.Direction;
+import games.spaceinvaders.dto.RestartGame;
+import games.spaceinvaders.dto.ShipMove;
+import games.spaceinvaders.dto.ShipShot;
+import games.spaceinvaders.game.GameState;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class InputHandler implements KeyListener {
 
-	private final SpaceInvaders game;
-	private final GameManager gameManager;
-
-	public InputHandler( final SpaceInvaders game, final GameManager gameManager ) {
-		this.game = game;
-		this.gameManager = gameManager;
-	}
+	private WebSocketClient webSocketClient;
 
 	@Override
 	public void keyTyped( final KeyEvent e ) {}
 
 	@Override
 	public void keyPressed( final KeyEvent e ) {
-		final var ship = gameManager.getShip();
-		final var bullets = gameManager.getBullets();
 
 		// Ship controls
 		if ( e.getKeyCode() == KeyEvent.VK_LEFT ) {
-			ship.move( Direction.LEFT );
+			webSocketClient.sendMessage( "/server/move", new ShipMove( 1, Direction.LEFT ) );
 		} else if ( e.getKeyCode() == KeyEvent.VK_RIGHT ) {
-			ship.move( Direction.RIGHT );
+			webSocketClient.sendMessage( "/server/move", new ShipMove( 1, Direction.RIGHT ) );
 		} else if ( e.getKeyCode() == KeyEvent.VK_SPACE ) {
-			final var bullet = new Bullet( ship );
-			bullets.add( bullet );
+			webSocketClient.sendMessage( "/server/shoot", new ShipShot( 1 ) );
 		}
 
 		// Restart game
-		if ( gameManager.isGameOver() && e.getKeyCode() == KeyEvent.VK_ENTER ) {
-			gameManager.resetGame();
-			game.restartGameLoop();
+		if ( GameState.gameOver && e.getKeyCode() == KeyEvent.VK_ENTER ) {
+			webSocketClient.sendMessage( "/server/restart", new RestartGame( 1 ) );
 		}
 	}
 
