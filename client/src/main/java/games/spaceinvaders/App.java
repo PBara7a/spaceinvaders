@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import games.spaceinvaders.client.WebSocketClient;
 import games.spaceinvaders.constants.Board;
+import games.spaceinvaders.game.AnimationManager;
 import games.spaceinvaders.game.GameManager;
 import games.spaceinvaders.game.SpaceInvaders;
 import games.spaceinvaders.input.InputHandler;
@@ -12,7 +13,8 @@ public class App {
 
     public static void main( String[] args ) {
 
-        final var gameManager = new GameManager();
+        final var animationManager = new AnimationManager();
+        final var gameManager = new GameManager( animationManager );
         final var webSocketClient = new WebSocketClient( gameManager );
         webSocketClient.connect( "ws://localhost:8080/spaceinvaders-server" );
 

@@ -10,7 +10,6 @@ public class AlienDto {
 
 	private int x;
 	private int y;
-	private int xVelocity;
 	private boolean alive;
 
 }

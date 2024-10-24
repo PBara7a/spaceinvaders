@@ -11,9 +11,13 @@ import games.spaceinvaders.actors.Alien;
 import games.spaceinvaders.actors.Bullet;
 import games.spaceinvaders.dto.GameStateDto;
 import games.spaceinvaders.utils.Mapper;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class GameManager {
+
+	private final AnimationManager animationManager;
 
 	public void updateLocalGameState( final GameStateDto gameState ) {
 		GameState.aliens = Mapper.getAliensFromGameStateDto( gameState );
@@ -26,12 +30,12 @@ public class GameManager {
 
 	public void drawGame( final Graphics g ) {
 		// Draw Ship
-		g.drawImage( GameState.ship.getImage(), GameState.ship.getX(), GameState.ship.getY(), GameState.ship.getWidth(), GameState.ship.getHeight(), null );
+		g.drawImage( animationManager.getShipAnimation(), GameState.ship.getX(), GameState.ship.getY(), GameState.ship.getWidth(), GameState.ship.getHeight(), null );
 
 		// Draw Aliens
 		for ( Alien alien : GameState.aliens ) {
 			if ( alien.isAlive() ) {
-				g.drawImage( alien.getImage(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight(), null );
+				g.drawImage( animationManager.getAlienAnimation(), alien.getX(), alien.getY(), alien.getWidth(), alien.getHeight(), null );
 			}
 		}
 
@@ -62,15 +66,13 @@ public class GameManager {
 			g.setFont( new Font( Font.MONOSPACED, Font.PLAIN, 12 ) );
 			g.drawString( "LIVES: ", 12, Board.height - 8 );
 			for ( int i = 0; i < GameState.lives; i++ ) {
-				g.drawImage( GameState.ship.getImage(), 58 + i * GameState.ship.getWidth() / 2, Board.height - GameState.ship.getHeight(), GameState.ship.getWidth() / 2, GameState.ship.getHeight() / 2, null );
+				g.drawImage( animationManager.getShipAnimation(), 58 + i * GameState.ship.getWidth() / 2, Board.height - GameState.ship.getHeight(), GameState.ship.getWidth() / 2, GameState.ship.getHeight() / 2, null );
 			}
 		}
 	}
 
 	public void toggleAlienAnimation() {
-		for ( Alien alien : GameState.aliens ) {
-			alien.toggleAnimation();
-		}
+		animationManager.toggleAlienAnimation();
 	}
 
 }

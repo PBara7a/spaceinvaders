@@ -1,4 +1,4 @@
-package games.spaceinvaders.server.models;
+package games.spaceinvaders.actors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Sprite {
+public abstract class Actor {
 
 	private int width;
 	private int height;
 	private int x;
 	private int y;
-	private int xVelocity;
 
 }

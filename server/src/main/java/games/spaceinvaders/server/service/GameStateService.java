@@ -1,7 +1,6 @@
 package games.spaceinvaders.server.service;
 
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,13 +17,13 @@ public class GameStateService {
 	private final ObjectMapper objectMapper;
 
 	public void broadcastGameState( final GameState gameState ) {
-		final var accessor = StompHeaderAccessor.create();
+//		// TODO: investigate - Custom headers added were not getting to the client
+//		final var accessor = StompHeaderAccessor.create();
+//		accessor.setLeaveMutable( true );
+//		accessor.setHeader( "type", gameState.getClass().getName() );
+//		messagingTemplate.convertAndSend( "/topic/gamestate", gameStateDto, accessor.getMessageHeaders() );
 
 		final var gameStateDto = objectMapper.convertValue( gameState, GameStateDto.class );
-
-		accessor.setLeaveMutable( true );
-		accessor.setHeader( "type", gameState.getClass().getName() );
-
-		messagingTemplate.convertAndSend( "/topic/gamestate", gameStateDto, accessor.getMessageHeaders() );
+		messagingTemplate.convertAndSend( "/topic/gamestate", gameStateDto );
 	}
 }

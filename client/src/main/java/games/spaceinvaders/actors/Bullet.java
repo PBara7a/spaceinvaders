@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Bullet extends Sprite {
+public class Bullet extends Actor {
 
 	private boolean isUsed;
 

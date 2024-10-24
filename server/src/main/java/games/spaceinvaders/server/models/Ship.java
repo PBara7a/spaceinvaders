@@ -4,7 +4,7 @@ import games.spaceinvaders.constants.Board;
 import games.spaceinvaders.constants.Direction;
 
 
-public class Ship extends Sprite {
+public class Ship extends Actor {
 
 	public Ship() {
 		super( Board.tileSize, Board.tileSize / 2,

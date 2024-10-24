@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Alien extends Sprite {
+public class Alien extends Actor {
 
 	private boolean alive;
 
