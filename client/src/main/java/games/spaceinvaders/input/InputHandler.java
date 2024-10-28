@@ -8,13 +8,14 @@ import games.spaceinvaders.constants.Direction;
 import games.spaceinvaders.dto.RestartGame;
 import games.spaceinvaders.dto.ShipMove;
 import games.spaceinvaders.dto.ShipShot;
-import games.spaceinvaders.game.GameState;
+import games.spaceinvaders.game.GameManager;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class InputHandler implements KeyListener {
 
 	private WebSocketClient webSocketClient;
+	private GameManager gameManager;
 
 	@Override
 	public void keyTyped( final KeyEvent e ) {}
@@ -32,7 +33,7 @@ public class InputHandler implements KeyListener {
 		}
 
 		// Restart game
-		if ( GameState.gameOver && e.getKeyCode() == KeyEvent.VK_ENTER ) {
+		if ( gameManager.getGameState().isGameOver() && e.getKeyCode() == KeyEvent.VK_ENTER ) {
 			webSocketClient.sendMessage( "/server/restart", new RestartGame( 1 ) );
 		}
 	}

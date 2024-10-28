@@ -14,12 +14,20 @@ import lombok.Setter;
 @Setter
 public class GameState {
 
-	public static Ship ship = new Ship();
-	public static List<Alien> aliens = new ArrayList<>();
-	public static List<Bullet> bullets = new LinkedList<>();
-	public static int score = 0;
-	public static int lives = 3;
-	public static boolean gameOver = false;
-	public static int alienCount = 0;
+	private Ship ship;
+	private List<Alien> aliens;
+	private List<Bullet> bullets;
+	private int score;
+	private int lives;
+	private boolean gameOver;
+
+	public GameState() {
+		this.ship = new Ship();
+		this.aliens = new ArrayList<>();
+		this.bullets = new LinkedList<>();
+		this.score = 0;
+		this.lives = 3;
+		this.gameOver = false;
+	}
 
 }

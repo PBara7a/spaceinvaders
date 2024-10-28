@@ -14,11 +14,11 @@ public class App {
     public static void main( String[] args ) {
 
         final var animationManager = new AnimationManager();
-        final var gameManager = new GameManager( animationManager );
+        final var gameManager = new GameManager();
         final var webSocketClient = new WebSocketClient( gameManager );
         webSocketClient.connect( "ws://localhost:8080/spaceinvaders-server" );
 
-        final var inputHandler = new InputHandler( webSocketClient );
+        final var inputHandler = new InputHandler( webSocketClient, gameManager );
 
         // Create the window frame
         final var frame = new JFrame();
@@ -28,7 +28,7 @@ public class App {
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
         // Add SpaceInvaders to the frame
-        final var spaceInvaders = new SpaceInvaders( gameManager, inputHandler );
+        final var spaceInvaders = new SpaceInvaders( gameManager, animationManager, inputHandler );
         spaceInvaders.requestFocus();
         frame.add( spaceInvaders );
         frame.pack();

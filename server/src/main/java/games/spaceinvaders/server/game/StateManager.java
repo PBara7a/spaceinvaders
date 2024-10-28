@@ -61,7 +61,7 @@ public class StateManager implements ActionListener {
 			if ( alien.isAlive() ) {
 				alien.moveXAxis();
 
-				if ( alien.getX() + alien.getWidth() >= Board.width || alien.getX() <= 0 ) {
+				if ( alien.getX() + alien.getWidth() >= Board.width - Board.alienGap || alien.getX() <= 0 ) {
 					hasBouncedOnEdge = true;
 					break;
 				}

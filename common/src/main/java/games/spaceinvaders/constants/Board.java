@@ -10,4 +10,5 @@ public class Board {
 	public static final int width = tileSize * columns;
 	public static final int height = tileSize * rows;
 	public static final Color color = Color.BLACK;
+	public static final int alienGap = Board.tileSize / 5;
 }

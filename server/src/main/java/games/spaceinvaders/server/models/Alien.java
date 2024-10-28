@@ -12,8 +12,8 @@ public class Alien extends Actor {
 	private boolean alive;
 
 	public Alien( final int r, final int c ) {
-		super( Board.tileSize, Board.tileSize / 2,
-				c * Board.tileSize + Board.tileSize,
+		super( Board.tileSize / 10 * 8, Board.tileSize / 2,
+				c * (Board.tileSize + Board.alienGap) + Board.tileSize,
 				r * Board.tileSize + Board.tileSize * 2, 1 );
 		this.alive = true;
 	}
