@@ -1,4 +1,4 @@
-package games.spaceinvaders.server.models;
+package games.spaceinvaders.server.model;
 
 import games.spaceinvaders.constants.Board;
 import games.spaceinvaders.constants.Direction;

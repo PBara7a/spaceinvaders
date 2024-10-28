@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import games.spaceinvaders.animation.AnimationManager;
 import games.spaceinvaders.input.InputHandler;
 import games.spaceinvaders.constants.Board;
 

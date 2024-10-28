@@ -1,4 +1,4 @@
-package games.spaceinvaders.game;
+package games.spaceinvaders.model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

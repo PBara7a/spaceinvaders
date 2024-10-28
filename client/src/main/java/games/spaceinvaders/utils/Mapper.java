@@ -10,7 +10,7 @@ import games.spaceinvaders.actors.Alien;
 import games.spaceinvaders.actors.Bullet;
 import games.spaceinvaders.actors.Ship;
 import games.spaceinvaders.dto.GameStateDto;
-import games.spaceinvaders.game.GameState;
+import games.spaceinvaders.model.GameState;
 
 public class Mapper {
 

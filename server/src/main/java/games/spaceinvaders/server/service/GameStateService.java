@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import games.spaceinvaders.dto.GameStateDto;
-import games.spaceinvaders.server.models.GameState;
+import games.spaceinvaders.server.model.GameState;
 import lombok.AllArgsConstructor;
 
 @Service

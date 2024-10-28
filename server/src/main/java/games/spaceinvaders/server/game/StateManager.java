@@ -9,11 +9,11 @@ import javax.swing.Timer;
 
 import org.springframework.stereotype.Service;
 
-import games.spaceinvaders.server.models.Alien;
-import games.spaceinvaders.server.models.Bullet;
-import games.spaceinvaders.server.models.Ship;
+import games.spaceinvaders.server.model.Alien;
+import games.spaceinvaders.server.model.Bullet;
+import games.spaceinvaders.server.model.Ship;
 import games.spaceinvaders.constants.Board;
-import games.spaceinvaders.server.models.GameState;
+import games.spaceinvaders.server.model.GameState;
 import games.spaceinvaders.server.service.GameStateService;
 import games.spaceinvaders.server.utils.CollisionDetector;
 import lombok.Getter;

@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import games.spaceinvaders.client.WebSocketClient;
 import games.spaceinvaders.constants.Board;
-import games.spaceinvaders.game.AnimationManager;
+import games.spaceinvaders.animation.AnimationManager;
 import games.spaceinvaders.game.GameManager;
 import games.spaceinvaders.game.SpaceInvaders;
 import games.spaceinvaders.input.InputHandler;

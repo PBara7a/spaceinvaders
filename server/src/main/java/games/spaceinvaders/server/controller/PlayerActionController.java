@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import games.spaceinvaders.dto.RestartGame;
 import games.spaceinvaders.dto.ShipMove;
 import games.spaceinvaders.dto.ShipShot;
-import games.spaceinvaders.server.models.Bullet;
+import games.spaceinvaders.server.model.Bullet;
 import games.spaceinvaders.server.game.StateManager;
 import lombok.AllArgsConstructor;
 

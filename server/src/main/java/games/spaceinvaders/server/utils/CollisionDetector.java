@@ -1,6 +1,6 @@
 package games.spaceinvaders.server.utils;
 
-import games.spaceinvaders.server.models.Actor;
+import games.spaceinvaders.server.model.Actor;
 
 public class CollisionDetector {
 

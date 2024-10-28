@@ -1,6 +1,7 @@
 package games.spaceinvaders.game;
 
 import games.spaceinvaders.dto.GameStateDto;
+import games.spaceinvaders.model.GameState;
 import games.spaceinvaders.utils.Mapper;
 import lombok.Getter;
 import lombok.Setter;

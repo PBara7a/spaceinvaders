@@ -3,7 +3,7 @@ package games.spaceinvaders.server.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import games.spaceinvaders.server.models.Alien;
+import games.spaceinvaders.server.model.Alien;
 import games.spaceinvaders.constants.Board;
 import lombok.Getter;
 

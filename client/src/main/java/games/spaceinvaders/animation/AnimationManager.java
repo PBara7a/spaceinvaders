@@ -1,4 +1,4 @@
-package games.spaceinvaders.game;
+package games.spaceinvaders.animation;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 import games.spaceinvaders.actors.Alien;
 import games.spaceinvaders.actors.Bullet;
-import games.spaceinvaders.animation.AlienAnimation;
-import games.spaceinvaders.animation.ShipAnimation;
 import games.spaceinvaders.constants.Board;
+import games.spaceinvaders.model.GameState;
 import lombok.Getter;
 
 @Getter

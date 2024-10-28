@@ -1,4 +1,4 @@
-package games.spaceinvaders.server.models;
+package games.spaceinvaders.server.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
