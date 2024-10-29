@@ -42,6 +42,14 @@ public class WebSocketClient {
 		}
 	}
 
+	public void joinGame( final int gameId ) {
+		if ( session != null && session.isConnected() ) {
+			session.send( "/server/join-game", gameId );
+		} else {
+			System.err.println( "Cannot send message, no active session." );
+		}
+	}
+
 	private class SessionHandler extends StompSessionHandlerAdapter {
 
 		@Override
@@ -49,9 +57,12 @@ public class WebSocketClient {
 			System.out.println( "Connected to server. Session id: " + session.getSessionId() );
 			WebSocketClient.this.session = session;
 
-			// Subscribe to topics
-			session.subscribe( "/topic/gamestate", this );
-			System.out.println( "Subscribed to /topic/gamestate" );
+			// Subscribe to topic
+			// TODO: make dynamic
+			final int gameId = 1;
+			session.subscribe( "/topic/game/" + gameId + "/gamestate", this );
+			System.out.println( "Subscribed to /topic/game/" + gameId + "/gamestate" );
+			joinGame( gameId );
 		}
 
 		@Override
@@ -64,7 +75,8 @@ public class WebSocketClient {
 
 		@Override
 		public Type getPayloadType( final StompHeaders headers ) {
-			if ( Objects.equals( headers.getFirst( "destination" ), "/topic/gamestate" ) ) {
+			// TODO: make dynamic
+			if ( Objects.equals( headers.getFirst( "destination" ), "/topic/game/1/gamestate" ) ) {
 				return GameStateDto.class;
 			}
 

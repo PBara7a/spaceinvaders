@@ -2,15 +2,11 @@ package games.spaceinvaders.server.model;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class GameState {
 
 	private List<Alien> aliens;
@@ -19,5 +15,22 @@ public class GameState {
 	private int score;
 	private int lives;
 	private boolean gameOver;
+	private int alienCount;
+
+	public GameState() {
+		this.score = 0;
+		this.lives = 3;
+		this.gameOver = false;
+	}
+
+	public GameState( final List<Alien> aliens, final List<Bullet> bullets, final Ship ship ) {
+		this.aliens = aliens;
+		this.bullets = bullets;
+		this.ship = ship;
+		this.alienCount = aliens.size();
+		this.score = 0;
+		this.lives = 3;
+		this.gameOver = false;
+	}
 
 }

@@ -3,14 +3,15 @@ package games.spaceinvaders.server.game;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.Timer;
 
 import org.springframework.stereotype.Service;
 
 import games.spaceinvaders.server.model.Alien;
-import games.spaceinvaders.server.model.Bullet;
+import games.spaceinvaders.server.model.Game;
 import games.spaceinvaders.server.model.Ship;
 import games.spaceinvaders.constants.Board;
 import games.spaceinvaders.server.model.GameState;
@@ -24,36 +25,63 @@ import lombok.Setter;
 @Service
 public class StateManager implements ActionListener {
 
+	private final Map<Integer, Game> games;
+
 	private final Timer gameLoop;
 	private final GameStateService gameStateService;
 	private final WaveManager waveManager;
 
-	private Ship ship;
-	private List<Alien> aliens;
-	private List<Bullet> bullets;
-
-	private int alienCount;
-	private int score;
-	private int lives;
-	private boolean gameOver;
-
 	public StateManager( final GameStateService gameStateService, final WaveManager waveManager ) {
+		this.games = new ConcurrentHashMap<>();
 		this.gameStateService = gameStateService;
 		this.waveManager = waveManager;
 		this.gameLoop = new Timer( 1000/30, this );
-
-		ship = new Ship();
-		aliens = waveManager.createFirstWave();
-		alienCount = aliens.size();
-		bullets = new LinkedList<>();
-		score = 0;
-		lives = 3;
-		gameOver = false;
 		gameLoop.start();
-
 	}
 
-	public void updateGame() {
+	public Game getGame( final int gameId ) {
+		return games.get( gameId );
+	}
+
+	public void createGame( final int gameId ) {
+		if ( !games.containsKey( gameId ) ) {
+			final var game = new Game( gameId );
+			game.setState( createStartingState() );
+			games.put( gameId, game );
+		}
+	}
+
+	public void resetGame( final int gameId ) {
+		if ( games.get( gameId ) != null ) {
+			final var newGame = new Game( gameId );
+			newGame.setState( createStartingState() );
+			games.put( newGame.getId(), newGame );
+		}
+	}
+
+	@Override
+	public void actionPerformed( final ActionEvent e ) {
+		updateGames();
+		broadcastGames();
+	}
+
+	private GameState createStartingState() {
+		final var alienWave = waveManager.createFirstWave();
+		return new GameState( alienWave, new LinkedList<>(), new Ship() );
+	}
+
+	private void updateGames() {
+		for ( int gameId : games.keySet() ) {
+			updateGame( gameId );
+		}
+	}
+
+	private void updateGame( final int gameId ) {
+		final var currentGameState = games.get( gameId ).getState();
+		final var ship = currentGameState.getShip();
+		final var aliens = currentGameState.getAliens();
+		final var bullets = currentGameState.getBullets();
+
 		// Move Aliens
 		boolean hasBouncedOnEdge = false;
 
@@ -67,7 +95,7 @@ public class StateManager implements ActionListener {
 				}
 
 				if ( CollisionDetector.hasCollided( alien, ship ) || alien.getY() > ship.getY() ) {
-					gameOver = true;
+					currentGameState.setGameOver( true );
 				}
 			}
 		}
@@ -89,8 +117,8 @@ public class StateManager implements ActionListener {
 				if ( !bullet.isUsed() && alien.isAlive() && CollisionDetector.hasCollided( bullet, alien ) ) {
 					bullet.setUsed( true );
 					alien.setAlive( false );
-					alienCount--;
-					score += 10;
+					currentGameState.setAlienCount( currentGameState.getAlienCount() - 1 );
+					currentGameState.setScore( currentGameState.getScore() + 10 );
 				}
 			}
 
@@ -100,42 +128,23 @@ public class StateManager implements ActionListener {
 		}
 
 		// Next level
-		if ( alienCount == 0 ) {
-			score += calculateBonusScore( waveManager.getAlienRows(), waveManager.getAlienColumns() ); // bonus for clearing level
+		if ( currentGameState.getAlienCount() <= 0 ) {
+			currentGameState.setScore( currentGameState.getScore() + calculateBonusScore( waveManager.getAlienRows(), waveManager.getAlienColumns() ) );
 			bullets.clear();
-			aliens = waveManager.createNextWave();
-			alienCount = aliens.size();
+			final var nextAlienWave = waveManager.createNextWave();
+			currentGameState.setAliens( nextAlienWave );
+			currentGameState.setAlienCount( nextAlienWave.size() );
 		}
-	}
-
-	public void resetGame() {
-		ship = new Ship();
-		aliens = waveManager.createFirstWave();
-		alienCount = aliens.size();
-		bullets = new LinkedList<>();
-		score = 0;
-		lives = 3;
-		gameOver = false;
-		gameLoop.restart();
 	}
 
 	private int calculateBonusScore( final int alienRows, final int alienCols ) {
 		return alienCols * alienRows * 100;
 	}
 
-	private GameState getGameState() {
-		return new GameState( aliens, bullets, ship, score, lives, gameOver );
-	}
-
-	@Override
-	public void actionPerformed( final ActionEvent e ) {
-		updateGame();
-
-		// Broadcast current state
-		gameStateService.broadcastGameState( getGameState() );
-
-		if ( isGameOver() ) {
-			gameLoop.stop();
+	private void broadcastGames() {
+		for ( final Game game : games.values() ) {
+			gameStateService.broadcastGameState( game );
 		}
 	}
+
 }

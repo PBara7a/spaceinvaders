@@ -23,18 +23,19 @@ public class InputHandler implements KeyListener {
 	@Override
 	public void keyPressed( final KeyEvent e ) {
 
+		// TODO: make "game" dynamic
 		// Ship controls
 		if ( e.getKeyCode() == KeyEvent.VK_LEFT ) {
-			webSocketClient.sendMessage( "/server/move", new ShipMove( 1, Direction.LEFT ) );
+			webSocketClient.sendMessage( "/server/game/1/move", new ShipMove( 1, Direction.LEFT ) );
 		} else if ( e.getKeyCode() == KeyEvent.VK_RIGHT ) {
-			webSocketClient.sendMessage( "/server/move", new ShipMove( 1, Direction.RIGHT ) );
+			webSocketClient.sendMessage( "/server/game/1/move", new ShipMove( 1, Direction.RIGHT ) );
 		} else if ( e.getKeyCode() == KeyEvent.VK_SPACE ) {
-			webSocketClient.sendMessage( "/server/shoot", new ShipShot( 1 ) );
+			webSocketClient.sendMessage( "/server/game/1/shoot", new ShipShot( 1 ) );
 		}
 
 		// Restart game
 		if ( gameManager.getGameState().isGameOver() && e.getKeyCode() == KeyEvent.VK_ENTER ) {
-			webSocketClient.sendMessage( "/server/restart", new RestartGame( 1 ) );
+			webSocketClient.sendMessage( "/server/game/1/restart", new RestartGame( 1 ) );
 		}
 	}
 
